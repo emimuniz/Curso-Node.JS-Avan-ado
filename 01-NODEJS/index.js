@@ -40,6 +40,18 @@ function obterEndereco(idUsuario){
 const usuarioPromisse = obterUsuario()
 
 usuarioPromisse
+    .then((usuario) => {
+        return obterTelefone(usuario.id)
+        .then((result) => {
+            return {
+                usuario: {
+                    nome: usuario.nome,
+                    id: usuario.id
+                },
+                telefone: result
+            }
+        })
+    })
     .then((resultado) => {
         console.log('resultado', resultado);
     })
@@ -49,25 +61,7 @@ usuarioPromisse
     })
 
 
-const telefonePromisse = obterTelefone()
-    .then((resultado) => {
-        console.log('resultado', resultado);
-    })
-    .catch((error) => {
-        console.error("Deu Ruim", error);
 
-    })
-
-const   enderecoPromisse = obterEndereco()
-    .then((resultado) => {
-        console.log('resultado', resultado);
-    })
-    .catch((error) => {
-        console.error("Deu Ruim", error);
-
-    })
-
-    
 
 //usando callback
 // obterUsuario((error, usuario) => {
